@@ -1,0 +1,124 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "User API",
+    "version": "1.0.0",
+    "description": "API for user management and authentication"
+  },
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "operationId": "registerUser",
+        "description": "Create a new user account with email and password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {"type": "string"},
+                  "email": {"type": "string"},
+                  "password": {"type": "string"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {"description": "User created successfully"},
+          "400": {"description": "Invalid input"}
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "Login user",
+        "operationId": "loginUser",
+        "description": "Authenticate user and return session token",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {"type": "string"},
+                  "password": {"type": "string"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {"description": "Login successful"},
+          "401": {"description": "Invalid credentials"}
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "summary": "Logout user",
+        "operationId": "logoutUser",
+        "description": "End user session",
+        "responses": {
+          "200": {"description": "Logout successful"},
+          "401": {"description": "Unauthorized"}
+        }
+      }
+    },
+    "/api/users/{username}": {
+      "get": {
+        "summary": "Get user profile",
+        "operationId": "getUserProfile",
+        "description": "Retrieve user profile information",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {"type": "string"}
+          }
+        ],
+        "responses": {
+          "200": {"description": "User profile"},
+          "404": {"description": "User not found"}
+        }
+      }
+    },
+    "/api/users/{username}/password": {
+      "put": {
+        "summary": "Change password",
+        "operationId": "changePassword",
+        "description": "Update user password",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {"type": "string"}
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "old_password": {"type": "string"},
+                  "new_password": {"type": "string"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {"description": "Password changed"},
+          "401": {"description": "Invalid credentials"}
+        }
+      }
+    }
+  }
+}
