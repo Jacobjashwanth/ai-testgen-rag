@@ -1,6 +1,6 @@
 import { ChevronDown, ChevronUp, FileCode } from 'lucide-react';
 import { useState } from 'react';
-import { SyntaxHighlighter } from 'react-syntax-highlighter';
+import SyntaxHighlighter from 'react-syntax-highlighter';
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 export default function CitationViewer({ citations }) {

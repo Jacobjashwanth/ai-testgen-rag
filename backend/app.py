@@ -12,9 +12,13 @@ from models.test_generator import TestGenerator
 from services.file_parser import FileParser
 from services.rag_retriever import RAGRetriever
 from utils.config import Config
+from utils.logger import RequestLoggingMiddleware, logger
+from utils.security import SecurityMiddleware
 
 # Initialize
 app = FastAPI(title="AI Test Generator RAG")
+app.add_middleware(RequestLoggingMiddleware)
+app.add_middleware(SecurityMiddleware)
 
 # CORS middleware
 app.add_middleware(
