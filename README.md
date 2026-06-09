@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # AI Test Case Generator with RAG
 
 A powerful web application that leverages Retrieval Augmented Generation (RAG) with Claude AI to automatically generate comprehensive test cases from your source code and API specifications.
@@ -269,7 +268,5 @@ Contributions welcome! Please feel free to submit pull requests.
 ## Support
 
 For issues and questions, please open an issue on GitHub.
-=======
 # ai-testgen-rag
 🤖 AI Test Case Generator with RAG - FastAPI backend + React/Vite frontend. Generates Pytest, Selenium, and REST tests from source code using Claude AI and FAISS embeddings.
->>>>>>> b5739135865f7638bfd5e944d6fc6a5e3a31048f
