@@ -42,7 +42,7 @@ export default function App() {
               </div>
             )}
           </div>
-          <p className="text-gray-600 mt-2">RAG-powered test generation with Claude AI</p>
+          <p className="text-gray-600 mt-2">RAG-powered test generation with AI</p>
         </div>
       </header>
 

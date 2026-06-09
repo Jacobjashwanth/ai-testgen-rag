@@ -2,6 +2,11 @@
 
 A powerful web application that leverages Retrieval Augmented Generation (RAG) with Claude AI to automatically generate comprehensive test cases from your source code and API specifications.
 
+# Screenshots
+
+**Main Interface**
+![Home](screenshots/Screenshot1.png)
+
 ## Features
 
 ✨ **Smart Code Analysis**
@@ -23,6 +28,21 @@ A powerful web application that leverages Retrieval Augmented Generation (RAG) w
 - Every generated test includes source code citations
 - Line numbers and file references
 - Browse original code snippets in the UI
+
+🔄 **Ollama Fallback (Free Local LLM)**
+- Automatically switches to Ollama/llama3 when Claude credits run out
+- Runs 100% locally — no API key needed
+- Install with: `brew install ollama && ollama pull llama3`
+
+🔒 **Security**
+- Rate limiting — 30 requests/min per IP
+- Prompt injection protection
+- Security headers (X-Frame-Options, X-Content-Type-Options)
+
+📋 **Logging**
+- Every request logged with timestamp, method, status, duration
+- Every generation logged with model used, chunks retrieved, latency
+- Logs to terminal and `app.log` file
 
 ## Project Structure
 
@@ -50,6 +70,7 @@ ai_testgen/
 - Python 3.9+
 - Node.js 18+
 - Anthropic API key
+- Ollama (for free local inference — https://ollama.ai)
 
 ### Backend Setup
 
@@ -256,6 +277,13 @@ curl -X POST http://localhost:8000/generate-tests \
 **Issue**: Slow test generation
 - Claude API may be rate-limited
 - Check API usage in Anthropic dashboard
+
+**Issue**: Claude credit error during generation
+- Ollama fallback activates automatically
+- Run `ollama serve` then `ollama pull llama3`
+
+**Issue**: `python` command not found
+- Use `python3.11` explicitly on Mac
 
 ## License
 
