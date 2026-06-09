@@ -1,6 +1,6 @@
 # AI Test Case Generator with RAG
 
-A powerful web application that leverages Retrieval Augmented Generation (RAG) with Claude AI to automatically generate comprehensive test cases from your source code and API specifications.
+A powerful web application that leverages Retrieval Augmented Generation (RAG) with any AI to automatically generate comprehensive test cases from your source code and API specifications.
 
 # Screenshots
 
@@ -69,7 +69,7 @@ ai_testgen/
 ### Prerequisites
 - Python 3.9+
 - Node.js 18+
-- Anthropic API key
+- Anthropic API key/Open AI API key
 - Ollama (for free local inference — https://ollama.ai)
 
 ### Backend Setup
