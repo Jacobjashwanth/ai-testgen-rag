@@ -1,6 +1,7 @@
-import time
 import re
+import time
 from collections import defaultdict
+
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse
 
@@ -31,8 +32,12 @@ class SecurityMiddleware(BaseHTTPMiddleware):
         ip = request.client.host if request.client else "unknown"
         if request.url.path in ["/generate-tests", "/upload"]:
             if not check_rate_limit(ip):
-                return JSONResponse(status_code=429, content={"detail": "Rate limit exceeded — max 30 requests/min"})
+                return JSONResponse(
+                    status_code=429,
+                    content={"detail": "Rate limit exceeded — max 30 requests/min"}
+                )
         response = await call_next(request)
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "1; mode=block"
         return response

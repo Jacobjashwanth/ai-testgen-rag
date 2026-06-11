@@ -1,18 +1,18 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+import json
 import os
 from typing import List
-import json
 
-from models.schemas import (
-    TestGenerationRequest, GenerationResponse, TestResult, UploadResponse, Chunk
-)
+from fastapi import BackgroundTasks, FastAPI, File, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from models.schemas import (Chunk, GenerationResponse, TestGenerationRequest,
+                            TestResult, UploadResponse)
 from models.test_generator import TestGenerator
 from services.file_parser import FileParser
 from services.rag_retriever import RAGRetriever
 from utils.config import Config
 from utils.logger import RequestLoggingMiddleware, logger
+from utils.pii import detect_pii, scrub_code_for_llm
 from utils.security import SecurityMiddleware
 
 # Initialize
@@ -49,6 +49,12 @@ async def upload_file(file: UploadFile = File(...)):
         
         content = await file.read()
         content_str = content.decode('utf-8')
+        
+        # PII Detection
+        from utils.pii import detect_pii
+        pii_result = detect_pii(content_str)
+        if pii_result.has_pii:
+            print(f"[WARN] {pii_result.summary} in {file.filename}")
         
         # Parse file
         from services.file_parser import FileParser as FP
